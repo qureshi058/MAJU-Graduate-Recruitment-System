@@ -1,0 +1,28 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.whole-container {
+  background-color: #3452b4;
+}
+
+.container-footer-01 {
+  padding: 56px;
+}
+
+.footer-images-01 {
+  width: 8%;
+}
+
+.footer-images-02 {
+  width: 10%;
+}
+
+.footer-images-03 {
+  width: 10%;
+}
+.descript {
+  margin-top: 30px;
+  color: white;
+}

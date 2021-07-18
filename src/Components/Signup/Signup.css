@@ -1,0 +1,41 @@
+.bg-pic {
+  padding: 8px;
+  background-image: url(../../assets//—Pngtree—graduation\ university\ background\ material_1114738.jpg);
+}
+.border {
+  padding: 60px;
+  margin: 160px 432px;
+
+  background: white;
+  /* border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ; */
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+.border:hover {
+  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.MuiTypography-h5 {
+  margin-left: 25px !important;
+  font-family: "Lexend" !important;
+}
+.MuiButton-root {
+  border-radius: 70px;
+  transition: all 0.3s ease-in-out !important;
+}
+.MuiButton-root:hover {
+  border-radius: 70px;
+  transform: scale(1.1);
+}
+.company-img {
+  width: 100px;
+  border-radius: 45px;
+}
+.signup {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}

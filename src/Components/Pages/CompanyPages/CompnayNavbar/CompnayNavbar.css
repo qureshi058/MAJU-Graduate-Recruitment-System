@@ -1,0 +1,9 @@
+.navbar-poistion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F8FF;
+}
+.adjsutment{
+    padding: 20px 30px !important;
+}

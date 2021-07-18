@@ -1,0 +1,74 @@
+.whole-profile-container {
+  margin-top: 62px;
+  padding: 0px 450px;
+}
+.your-profile-header {
+  background-color: #007ce1;
+  color: white;
+  padding: 25px;
+  font-size: 1.9642857142857142rem;
+  font-family: Lexend;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.container-1 {
+  background-color: #f6f6f6;
+}
+.container-2 {
+  display: flex;
+
+  justify-content: center;
+  background-color: white;
+}
+.header-6 {
+  margin-top: 10px;
+  margin-right: 0px;
+  font-size: 20px;
+}
+.steric {
+  color: red;
+}
+
+.date-picker {
+  margin-right: 30px;
+}
+.gender {
+  margin-top: 10px;
+}
+.dateob {
+  position: relative;
+  left: 129px;
+  bottom: 10px !important;
+}
+
+.MuiFormGroup-root {
+  display: flex !important;
+  flex-direction: row !important;
+  position: relative;
+  left: 30px;
+}
+
+.drropdown {
+  width: 100% !important;
+  margin-bottom: 40px !important;
+}
+
+.namef {
+  margin-bottom: 0px;
+}
+.Description-box {
+  margin-top: 20px;
+  width: 100%;
+}
+.expertise {
+  margin-top: 20px !important;
+}
+
+.submit-btn {
+  margin-top: 20px !important;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important;
+
+  color: white !important;
+  width: 200px !important;
+  background: linear-gradient(45deg, #6495ed 30%, #00008b 90%);
+}
