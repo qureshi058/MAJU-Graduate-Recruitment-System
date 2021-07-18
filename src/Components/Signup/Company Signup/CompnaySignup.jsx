@@ -9,8 +9,10 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import "./CompnaySignup.css";
 import { connect } from "react-redux";
 import { signUpStart } from "../../Redux/actions/companyActions.js";
+import { toast } from "react-toastify";
+import { withRouter } from "react-router-dom";
 
-const CompanySignup = ({ signUpStart }) => {
+const CompanySignup = ({ signUpStart ,history}) => {
   const [fullName, setFullName] = useState("");
   const [companyName, setCompanyName] = useState("");
 
@@ -20,19 +22,22 @@ const CompanySignup = ({ signUpStart }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert("passwords dont match");
+    if (email&&fullName&&password&&confirmPassword) {
+      signUpStart({
+        displayName: fullName,
+        email : email,
+        password,
+        companyName : companyName,
+        role: "COMPANY",
+      });
+      history.push("/Login")
+    } else {
+      toast.warn("fill out all feilds");
       return;
+      
     }
     //getting user from the auth library
-    signUpStart({
-      displayName: fullName,
-      email,
-      password,
-      companyName,
-      role: "COMPANY",
-    });
+   
   };
 
   const handleFullName = (event) => {
@@ -104,22 +109,6 @@ const CompanySignup = ({ signUpStart }) => {
                     Company Sign Up
                   </Typography>
                   <ValidatorForm onSubmit={handleSubmit} className="">
-                    <TextValidator
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      label="Full Name"
-                      onChange={handleFullName}
-                      name="Full Name"
-                      value={fullName}
-                      validators={["required"]}
-                      errorMessages={[
-                        "this field is required",
-                        "name is not valid",
-                      ]}
-                      autoComplete="off"
-                      className=""
-                    />
                     <TextValidator
                       variant="outlined"
                       margin="normal"
@@ -206,4 +195,4 @@ const mapDispatchToProps = (dispatch) => ({
   
 });
 
-export default connect(null, mapDispatchToProps)(CompanySignup);
+export default connect(null, mapDispatchToProps)(withRouter(CompanySignup));

@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
+import { useHistory } from "react-router-dom";
+
 
 const firebaseApp = firebase.initializeApp({
   databaseURL:
@@ -44,14 +46,14 @@ export const createUserProfileDocumentForUsers = async (
   return userRef;
 };
 
-
-
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       unsubscribe();
       resolve(userAuth);
-      console.log("GET USER", userAuth);
-    }, reject);
+      if(userAuth){
+       
+      }
+    }, reject );
   });
 };

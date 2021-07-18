@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-toastify/dist/ReactToastify.min.css";
 
 
 import App from "./App";
@@ -17,3 +18,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+

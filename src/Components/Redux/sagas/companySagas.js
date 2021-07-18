@@ -3,6 +3,7 @@
 //from sign-up.component.jsx file and now import user actions which is signUpStart action  from user action file in sign-up.component file
 
 import { takeLatest, put, all, call } from "redux-saga/effects";
+
 import {
   auth,
   firestore,
@@ -39,7 +40,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
-
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signInFailure(error));
@@ -65,12 +65,14 @@ export function* signOut() {
 }
 
 export function* signUp({
-  payload: { email, password, displayName, ...moreData },
+  payload: { email, password, displayName, role , companyName ,programName  },
 }) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     yield put(
-      signUpSuccess({ user, additionalData: { displayName, ...moreData } })
+      signUpSuccess({ user, additionalData: { displayName , role , companyName , email ,programName} }),
+      
+    
     );
   } catch (error) {
     yield put(signUpFailure(error));

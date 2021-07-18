@@ -9,8 +9,10 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import "./StudentSignup.css";
 import { connect } from "react-redux";
 import { signUpStart } from "../../Redux/actions/companyActions.js";
+import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const StudentSignup = ({ signUpStart }) => {
+const StudentSignup = ({ signUpStart, history }) => {
   const [fullName, setFullName] = useState("");
   const [programName, setProgramName] = useState("");
 
@@ -20,19 +22,22 @@ const StudentSignup = ({ signUpStart }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert("passwords dont match");
+    if (email&&fullName&&password&&confirmPassword&&programName) {
+      signUpStart({
+        displayName: fullName,
+        email: email,
+        password,
+        programName: programName,
+        role: "STUDENT",
+      });
+      history.push("/Login")
+    } else {
+      toast.warn("fill out all feilds");
       return;
+      
     }
     //getting user from the auth library
-    signUpStart({
-      displayName: fullName,
-      email,
-      password,
-      programName,
-      role: "STUDENT",
-    });
+    
   };
 
   const handleFullName = (event) => {
@@ -205,4 +210,4 @@ const mapDispatchToProps = (dispatch) => ({
   signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials)),
 });
 
-export default connect(null, mapDispatchToProps)(StudentSignup);
+export default connect(null, mapDispatchToProps)(withRouter(StudentSignup));

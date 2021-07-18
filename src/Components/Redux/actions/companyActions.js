@@ -4,7 +4,9 @@
 //now we go to user.saga.js file
 
 import UserActionTypes from "../userActionTypes";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
+
+import firebase from "firebase"
 //an action created which will be now used in user.reducer.js file which the 2nd value in parameter (state,actions)
 
 //......................................................redux-3............................................
@@ -13,16 +15,21 @@ import {toast} from 'react-toastify'
 //for google
 toast.configure();
 
-export const signInSuccess = (user) => ({
-  type: UserActionTypes.SIGN_IN_SUCCESS,
-  payload: user,
-  lmao: toast.success("Sign In Successful"),
-});
+export const signInSuccess = (user) => (
 
-export const signInFailure = (error) => ({
+  {
+    type: UserActionTypes.SIGN_IN_SUCCESS,
+    payload: user,
+
+  });
+
+export const signInFailure = (error) => (
+  toast.error(error.message),
+  {
   type: UserActionTypes.SIGN_IN_FAILURE,
-  payload: toast.error(error.message),
-});
+}
+
+);
 
 //for simple email
 //emailAndPassword put here as in sign-in.component.jsx file we are passing email and password as states which
@@ -40,10 +47,14 @@ export const signOutStart = () => ({
   type: UserActionTypes.SIGN_OUT_START,
 });
 
-export const signOutSuccess = () => ({
-  type: UserActionTypes.SIGN_OUT_SUCCESS,
-  lmao: toast("Signed Out"),
-});
+export const signOutSuccess = () => (
+  toast.success("Signed Out"),
+  firebase.auth().signOut().then(() => {
+    localStorage.clear()
+  }).catch((error) => {
+    // An error happened.
+  })
+  );
 
 export const signOutFailure = (error) => ({
   type: UserActionTypes.SIGN_OUT_FAILURE,
@@ -55,15 +66,18 @@ export const signUpStart = (userCredentials) => ({
   payload: userCredentials,
 });
 //user is what we always pass and the additional data is coming from firebase.utils.js file
-export const signUpSuccess = ({ user, additionalData }) => ({
+export const signUpSuccess = ({ user, additionalData }) => (
+  toast.success("Sign Up Successful"),
+  {
   type: UserActionTypes.SIGN_UP_SUCCESS,
   payload: { user, additionalData },
-  lmao: toast.success("Sign Up Successful"),
+  
 });
 
-export const signUpFailure = (error) => ({
+export const signUpFailure = (error) => (
+  toast.error(error.message),
+  {
   type: UserActionTypes.SIGN_UP_FAILURE,
-  payload: toast.error(error.message),
 });
 
 // export const emailSignInSuccess = (user) =>({

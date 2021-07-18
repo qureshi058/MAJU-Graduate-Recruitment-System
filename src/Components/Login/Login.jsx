@@ -10,6 +10,7 @@ import Button from "../Buttons/Buttons";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import LoginImage from "../../assets/loginImage.jpg";
+import { toast } from 'react-toastify'
 
 
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -39,18 +40,19 @@ const Login = ({
   
   useEffect(() => {
     checkUserSession();
+    if(currentUser){
+      console.log(currentUser.uid);
+    }
   }, [checkUserSession]);
 
   const userAGAIN = getCurrentUser();
-
-  console.log("GET USER AGAIN", userAGAIN);
-  console.log("USER", currentUser);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("CHAL RHA");
     emailSignInStart(email, password);
-    console.log("CHAL GYA");
+    history.push("/StudentHome")
+    toast.success("Sign In Successful")
+    localStorage.setItem("user",email)
+    
   };
 
   const handleEmail = (event) => {
