@@ -20,13 +20,16 @@ export const firestore = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 export const storage = firebaseApp.storage();
 
+
+
 export const createUserProfileDocumentForUsers = async (
   userAuth,
   additionalData
 ) => {
   if (!userAuth) return;
 
-  const userRef = firestore.doc(`Users/${userAuth.uid}`);
+  // const userRef = firestore.doc(`Users/${userAuth.uid}`);
+  const userRef=firestore.collection("Users").doc(userAuth.uid)
   const snapShot = await userRef.get();
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;

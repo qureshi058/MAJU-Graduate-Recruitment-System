@@ -11,33 +11,50 @@ import { connect } from "react-redux";
 import { signUpStart } from "../../Redux/actions/companyActions.js";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
+import { auth, firestore } from '../../firebase/firebase'
 
 const StudentSignup = ({ signUpStart, history }) => {
   const [fullName, setFullName] = useState("");
   const [programName, setProgramName] = useState("");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email&&fullName&&password&&confirmPassword&&programName) {
-      signUpStart({
-        displayName: fullName,
-        email: email,
-        password,
-        programName: programName,
-        role: "STUDENT",
-      });
-      history.push("/Login")
-    } else {
+   
+    if (email && fullName && password && confirmPassword && programName) {
+      // signUpStart({
+      //   displayName: fullName,
+      //   email: email,
+      //   password,
+      //   programName: programName,
+      //   role: "STUDENT",
+      // });
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(email, password)
+        console.log(user)
+        await firestore.collection("Users").doc(user.uid).set({
+          displayName: fullName,
+          email: email,
+          password,
+          programName: programName,
+          role: "STUDENT",
+          createdAt: new Date().toLocaleDateString()
+        })
+        toast.success("Your Acount Is Created");
+        history.push("/Home")
+
+      } catch (error) {
+        toast.error(error);
+      }
+} else {
       toast.warn("fill out all feilds");
       return;
-      
+
     }
     //getting user from the auth library
-    
+
   };
 
   const handleFullName = (event) => {

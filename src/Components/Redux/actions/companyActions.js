@@ -15,6 +15,12 @@ import firebase from "firebase"
 //for google
 toast.configure();
 
+export const userStateChange=(user) =>{
+ return{
+   type:UserActionTypes.USER_STATE_CHANGE,
+   payload:user
+ }
+}
 export const signInSuccess = (user) => (
 
   {

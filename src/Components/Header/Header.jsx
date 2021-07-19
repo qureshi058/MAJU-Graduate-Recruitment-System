@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
+import {auth} from '../firebase/firebase'
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "../Bar/Bar";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +7,7 @@ import Button from "../Buttons/Buttons";
 import Logo from "../../assets/download.png";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import {useHistory} from 'react-router-dom'
 import {
   signOutSuccess,
 } from "../Redux/actions/companyActions";
@@ -22,13 +24,16 @@ const theme = createMuiTheme({
 
 
 
-const Header = ({ signOutSuccess, history }) => {
+const Header = ({ signOutSuccess,currentUser }) => {
+  const history=useHistory()
+  // logout function------------------------------------------
   const handleout = async (event) => {
     event.preventDefault();
-    signOutSuccess()
-    history.push("/")
-    localStorage.clear()
-  };
+    // signOutSuccess()
+    await auth.signOut()
+   history.push("Login")
+};
+ 
 
   return (
     <div className="header">
@@ -42,7 +47,7 @@ const Header = ({ signOutSuccess, history }) => {
           <ThemeProvider theme={theme}>
             <Typography variant="h6" className="maju-header">MAJU RECRUITMENT SYSTEM</Typography>
           </ThemeProvider>
-          {localStorage.getItem("user") ? <div>
+          {currentUser.isActive?<div>
             <Button color="inherit" variant="raised" onClick={handleout}>
               Logout
             </Button>
@@ -59,8 +64,11 @@ const Header = ({ signOutSuccess, history }) => {
     </div>
   );
 };
+const mapStateToProps=(state)=>({
+  currentUser:state.company.currentUser
+})
 const mapDispatchToProps = (dispatch) => ({
   signOutSuccess
 });
 
-export default connect(mapDispatchToProps)(withRouter(Header));
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

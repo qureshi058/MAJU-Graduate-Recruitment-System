@@ -9,8 +9,10 @@ import newsSlides from "../../../../assets/newsSlide.jpg";
 import Footer from "../../../Footer/Footer";
 
 import "./StudentHome.css";
+import {connect} from 'react-redux'
 
-function StudentHome() {
+function StudentHome({user}) {
+  console.log(user)
   return (
     <div className="home-style">
       <div className="container-01">
@@ -115,5 +117,8 @@ function StudentHome() {
     </div>
   );
 }
+const mapStateToProps=(state)=>({
+  user:state.company.currentUser
+})
 
-export default StudentHome;
+export default connect(mapStateToProps,null)(StudentHome)

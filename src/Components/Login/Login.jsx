@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {auth} from '.././firebase/firebase'
 import {
   Container,
   CssBaseline,
@@ -40,18 +41,25 @@ const Login = ({
   
   useEffect(() => {
     checkUserSession();
-    if(currentUser){
-      console.log(currentUser.uid);
-    }
+    // if(currentUser){
+    //   console.log(currentUser.uid);
+    // }
   }, [checkUserSession]);
 
-  const userAGAIN = getCurrentUser();
+  // const userAGAIN = getCurrentUser();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    emailSignInStart(email, password);
-    history.push("/StudentHome")
-    toast.success("Sign In Successful")
-    localStorage.setItem("user",email)
+    // emailSignInStart(email, password);
+    try {
+      const res= await auth.signInWithEmailAndPassword(email,password)
+    history.push("/Home")
+    } catch (error) {
+   toast.error(error.message)
+    }
+    
+    
+   
+    // localStorage.setItem("user",email)
     
   };
 
@@ -158,8 +166,8 @@ const Login = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
+const mapStateToProps=(state) => ({
+  currentUser: state.company.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

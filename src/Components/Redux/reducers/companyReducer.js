@@ -1,5 +1,6 @@
 //"3rd STEP" AFTER MAKING ACTIONS IN user.actions.js file s
 
+import { FormatColorReset } from "@material-ui/icons";
 import UserActionTypes from "../userActionTypes";
 
 //a reducer is a fucntion which gets two properties it gets a state object which represetns the last state or an initial state and then it recieves an action
@@ -8,10 +9,17 @@ import UserActionTypes from "../userActionTypes";
 //...................................................redux-1....................................
 
 const INITIAL_STATE = {
-  currentUser: null,
+  currentUser: {
+    isActive:false
+  },
   error: null,
   success: null,
 };
+
+// export default ( state=INITIAL_STATE,action)=>{
+
+
+// }
 
 //if the state is ever undefined it will go to initial state
 //action.type value which will be string
@@ -29,6 +37,12 @@ const Reducer = (state = INITIAL_STATE, action) => {
         error: null,
         success: action.lmao,
       };
+      // user state change ---------------------------------------------
+      case UserActionTypes.USER_STATE_CHANGE:
+      return{
+...state,
+currentUser:{...action.payload}
+      }
     //if the user is successfull make error null if the user has failed then show error with action.payload
     case UserActionTypes.SIGN_OUT_SUCCESS:
       return {

@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { signUpStart } from "../../Redux/actions/companyActions.js";
 import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
+import { auth, firestore } from '../../firebase/firebase'
 
 const CompanySignup = ({ signUpStart ,history}) => {
   const [fullName, setFullName] = useState("");
@@ -22,15 +23,30 @@ const CompanySignup = ({ signUpStart ,history}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email&&fullName&&password&&confirmPassword) {
-      signUpStart({
-        displayName: fullName,
-        email : email,
-        password,
-        companyName : companyName,
-        role: "COMPANY",
-      });
-      history.push("/Login")
+    if (email&&password&&confirmPassword&&companyName) {
+      // signUpStart({
+      //   displayName: fullName,
+      //   email : email,
+      //   password,
+      //   companyName : companyName,
+      //   role: "COMPANY",
+      // });
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(email, password)
+        await firestore.collection("Users").doc(user.uid).set({
+           email: email,
+          password,
+          companyName: companyName,
+          role: "COMPANY",
+          createdAt: new Date().toLocaleDateString()
+        })
+        toast.success("Your Acount Is Created");
+        history.push("/Home")
+
+      } catch (error) {
+        toast.error(error);
+      }
+    
     } else {
       toast.warn("fill out all feilds");
       return;
