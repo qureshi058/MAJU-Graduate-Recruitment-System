@@ -26,7 +26,7 @@ const Signup = () => {
               <img src={studentLogo} alt="something" className="company-img" />
             </div>
             </Button>
-            <Typography variant="h5">Student Signup</Typography>
+            <Typography variant="h5">Student Signup form</Typography>
         </div>
       </div>
       </div>
